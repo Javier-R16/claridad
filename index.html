@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claridad: Test de señales</title>
+<meta name="description" content="¿Te está siendo infiel o lo estás pensando de más? Responde 14 preguntas y obtén un resultado claro y qué hacer después.">
+<meta name="theme-color" content="#0f1424">
+<link rel="canonical" href="__SITE_URL__">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Claridad">
+<meta property="og:locale" content="es_LA">
+<meta property="og:url" content="__SITE_URL__">
+<meta property="og:title" content="¿Te está siendo infiel, o lo estás pensando de más?">
+<meta property="og:description" content="Test de 3 minutos con 14 preguntas. Sal de la duda con un resultado claro. Nadie ve tus respuestas.">
+<meta property="og:image" content="__SITE_URL__og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Claridad: test de señales de infidelidad">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="¿Te está siendo infiel, o lo estás pensando de más?">
+<meta name="twitter:description" content="Test de 3 minutos con 14 preguntas. Sal de la duda con un resultado claro.">
+<meta name="twitter:image" content="__SITE_URL__og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Plan: noche de insomnio pensando de más; una lámpara ámbar ilumina el "expediente". Una sola columna, tipo app móvil. */
+:root{
+  --ink:#0f1424;
+  --panel:#171e35;
+  --line:#2a3354;
+  --text:#efe9dd;
+  --muted:#9ba3ba;
+  --lamp:#f2b24c;
+  --alert:#e8604c;
+  --calm:#6fc3a0;
+  --display:"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:var(--ink);
+  background-image:radial-gradient(60rem 40rem at 15% -10%, rgba(242,178,76,.16), transparent 60%);
+  background-attachment:fixed;
+  color:var(--text);
+  font-family:var(--body);
+  font-size:17px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:560px;margin:0 auto;padding:28px 18px 56px;display:flex;flex-direction:column;gap:24px;min-height:100%}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+.logo svg{flex:none}
+.tag{font-size:13px;color:var(--muted)}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:-.025em}
+h1{font-size:clamp(40px,10vw,60px);line-height:.98;font-weight:800}
+h1 em{font-style:normal;color:var(--lamp)}
+h2{font-size:clamp(26px,6.4vw,34px);line-height:1.08;font-weight:700}
+h3{font-size:19px;font-weight:700;letter-spacing:-.01em}
+p{margin:0}
+.lead{color:var(--muted);font-size:18px;max-width:34ch}
+.facts{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
+.facts li{border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:14px;color:var(--text)}
+.btn{
+  appearance:none;border:0;cursor:pointer;font:600 17px/1 var(--body);
+  background:var(--lamp);color:#1a1405;padding:17px 22px;border-radius:14px;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  transition:transform .15s ease, filter .15s ease;
+}
+.btn:hover{filter:brightness(1.06)}
+.btn:active{transform:scale(.98)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn:focus-visible,.opt:focus-visible,.link:focus-visible{outline:3px solid var(--lamp);outline-offset:3px}
+.note{font-size:14px;color:var(--muted);border-left:2px solid var(--line);padding-left:12px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:12px}
+
+/* Quiz */
+.top{display:flex;align-items:center;gap:14px}
+.link{appearance:none;background:none;border:0;color:var(--muted);font:500 15px var(--body);cursor:pointer;padding:6px 0}
+.link:disabled{opacity:.35;cursor:default}
+.bar{flex:1;height:6px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--lamp);border-radius:99px;transition:width .3s ease}
+.count{font:600 14px var(--body);color:var(--muted);font-variant-numeric:tabular-nums;min-width:44px;text-align:right}
+.cat{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--lamp)}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{
+  appearance:none;text-align:left;cursor:pointer;width:100%;
+  background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:14px;
+  padding:16px 18px;font:500 16px/1.4 var(--body);display:flex;gap:14px;align-items:flex-start;
+  transition:border-color .15s ease, background .15s ease, transform .15s ease;
+}
+.opt:hover{border-color:var(--lamp)}
+.opt:active{transform:scale(.99)}
+.opt b{flex:none;width:26px;height:26px;border-radius:8px;border:1px solid var(--line);display:grid;place-items:center;font:700 13px var(--display);color:var(--muted)}
+.opt[aria-pressed="true"]{border-color:var(--lamp);background:#221f2a}
+.opt[aria-pressed="true"] b{background:var(--lamp);color:#1a1405;border-color:var(--lamp)}
+
+/* Resultado */
+.gauge{display:flex;flex-direction:column;align-items:center;gap:4px}
+.gauge svg{width:100%;max-width:340px;height:auto}
+.score{font:800 64px/1 var(--display);font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.score small{font-size:24px;color:var(--muted);font-weight:600}
+.level{font:700 15px var(--body);text-transform:uppercase;letter-spacing:.12em}
+.signals{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.signals li{display:flex;gap:12px;align-items:flex-start}
+.dot{flex:none;width:10px;height:10px;border-radius:50%;margin-top:8px}
+.signals strong{display:block;font-weight:600}
+.signals span{color:var(--muted);font-size:15px}
+.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:12px}
+.steps li{counter-increment:s;display:flex;gap:12px;font-size:16px}
+.steps li::before{content:counter(s);flex:none;width:26px;height:26px;border-radius:50%;background:var(--line);display:grid;place-items:center;font:700 13px var(--display);color:var(--lamp)}
+.locked{border-style:dashed}
+.pill{align-self:flex-start;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:99px;background:rgba(242,178,76,.14);color:var(--lamp)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row .btn{flex:1 1 180px}
+.toast{font-size:14px;color:var(--calm);min-height:1.2em}
+.wl{display:flex;gap:8px;flex-wrap:wrap}
+.wl input{flex:1 1 200px;min-width:0;background:var(--ink);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:14px;font:500 16px var(--body)}
+.wl input:focus-visible{outline:3px solid var(--lamp);outline-offset:2px}
+.wl .btn{padding:14px 18px}
+.fine{font-size:12px;color:var(--muted)}
+.hidden{display:none !important}
+footer{margin-top:auto;font-size:13px;color:var(--muted);text-align:left}
+
+.enter{animation:enter .35s ease both}
+@keyframes enter{from{opacity:.001;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){
+  .enter{animation:none}
+  .bar i,.btn,.opt{transition:none}
+}
+</style>
+</head>
+<body>
+<main class="wrap" id="app">
+  <header class="brand">
+    <div class="logo" aria-label="Claridad">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+        <circle cx="13" cy="13" r="9" fill="none" stroke="#f2b24c" stroke-width="3"/>
+        <path d="M19.5 19.5 27 27" stroke="#f2b24c" stroke-width="3.4" stroke-linecap="round"/>
+        <circle cx="13" cy="13" r="3.2" fill="#efe9dd"/>
+      </svg>
+      Claridad
+    </div>
+    <span class="tag">Test de señales</span>
+  </header>
+
+  <!-- Inicio -->
+  <section id="intro" class="enter" style="display:flex;flex-direction:column;gap:22px">
+    <h1>¿Te está siendo <em>infiel</em>, o lo estás pensando de más?</h1>
+    <p class="lead">Responde 14 preguntas sobre lo que has notado en tu pareja y sal de la duda con un resultado claro y qué hacer después.</p>
+    <ul class="facts">
+      <li>14 preguntas</li>
+      <li>3 minutos</li>
+      <li>Nadie más ve tus respuestas</li>
+    </ul>
+    <button class="btn" id="start" type="button">Empezar el test
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9h11M10 4.5 14.5 9 10 13.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <p class="note">Claridad no espía a nadie. Trabaja solo con lo que tú has visto y vivido.</p>
+  </section>
+
+  <!-- Preguntas -->
+  <section id="quiz" class="hidden" style="flex-direction:column;gap:22px">
+    <div class="top">
+      <button class="link" id="back" type="button">← Atrás</button>
+      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="14" id="bar"><i id="barFill" style="width:0"></i></div>
+      <span class="count" id="count">1/14</span>
+    </div>
+    <div id="qBox" style="display:flex;flex-direction:column;gap:18px">
+      <span class="cat" id="qCat"></span>
+      <h2 id="qText"></h2>
+      <div class="opts" id="opts"></div>
+    </div>
+  </section>
+
+  <!-- Resultado -->
+  <section id="result" class="hidden" style="flex-direction:column;gap:20px">
+    <div class="panel gauge enter">
+      <svg viewBox="0 0 240 140" aria-hidden="true">
+        <defs>
+          <linearGradient id="g" x1="0" x2="1">
+            <stop offset="0" stop-color="#6fc3a0"/>
+            <stop offset=".5" stop-color="#f2b24c"/>
+            <stop offset="1" stop-color="#e8604c"/>
+          </linearGradient>
+        </defs>
+        <path d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="#2a3354" stroke-width="16" stroke-linecap="round"/>
+        <path id="arc" d="M20 120 A100 100 0 0 1 220 120" fill="none" stroke="url(#g)" stroke-width="16" stroke-linecap="round" pathLength="100" stroke-dasharray="0 100"/>
+        <g id="needle" transform="rotate(-90 120 120)">
+          <path d="M120 120 L120 38" stroke="#efe9dd" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="120" cy="120" r="7" fill="#efe9dd"/>
+        </g>
+        <text x="20" y="138" fill="#9ba3ba" font-size="11" font-family="Instrument Sans, sans-serif" text-anchor="middle">0</text>
+        <text x="220" y="138" fill="#9ba3ba" font-size="11" font-family="Instrument Sans, sans-serif" text-anchor="middle">100</text>
+      </svg>
+      <div class="score"><span id="scoreNum">0</span><small>/100</small></div>
+      <div class="level" id="levelName"></div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <h2 id="resTitle"></h2>
+      <p class="lead" id="resText" style="max-width:none"></p>
+    </div>
+
+    <div class="panel" id="signalsBox">
+      <h3>Lo que más pesó en tu resultado</h3>
+      <ul class="signals" id="signals"></ul>
+    </div>
+
+    <div class="panel">
+      <h3>Qué hacer ahora</h3>
+      <ol class="steps" id="steps"></ol>
+    </div>
+
+    <div class="panel locked">
+      <span class="pill">Próximamente</span>
+      <h3>Detective IA de tus chats</h3>
+      <p style="color:var(--muted)">Sube capturas de tus conversaciones con tu pareja y la IA te señala contradicciones, cambios de tono, horarios raros y excusas que se repiten.</p>
+      <form class="wl" id="wlForm" novalidate>
+        <input type="email" id="wlEmail" name="email" placeholder="tu@correo.com" autocomplete="email" inputmode="email" required aria-label="Correo electrónico">
+        <button class="btn" type="submit" id="wlBtn">Avísame cuando salga el Detective IA</button>
+      </form>
+      <p class="fine" id="wlMsg" aria-live="polite">Solo te escribiremos para avisarte del lanzamiento. Puedes pedir que borremos tu correo cuando quieras.</p>
+    </div>
+
+    <p class="note">Este test no prueba una infidelidad. Muestra patrones que conviene mirar con calma. Revisar el celular de otra persona sin su permiso es ilegal y te quita la razón.</p>
+
+    <div class="row">
+      <button class="btn" id="shareImg" type="button">Comparte tu resultado</button>
+      <button class="btn ghost" id="share" type="button">Copiar link del test</button>
+      <button class="btn ghost" id="again" type="button">Hacer el test otra vez</button>
+    </div>
+    <p class="toast" id="toast" aria-live="polite"></p>
+  </section>
+
+  <footer>Claridad · Prototipo del test de señales</footer>
+</main>
+
+<script>
+const Q = [
+  {c:"cel", cat:"Su celular", q:"¿Cómo trata su celular cuando estás cerca?", o:["Lo deja en cualquier lado, sin problema","A veces lo pone boca abajo","Lo lleva a todas partes, hasta al baño","Cambió la clave y no la quiere compartir"]},
+  {c:"cel", cat:"Su celular", q:"Cuando le llega un mensaje y estás al lado…", o:["Lo lee normal frente a ti","Sonríe y no dice de quién es","Se aleja para contestar","Silenció las notificaciones o borra chats"]},
+  {c:"rut", cat:"Su rutina", q:"¿Cómo ha estado su horario en el último mes?", o:["Igual que siempre","Algún cambio, pero con explicación","Más horas extra o reuniones nuevas","Ausencias que no cuadran"]},
+  {c:"rut", cat:"Su rutina", q:"Cuando le preguntas dónde estuvo…", o:["Te cuenta con detalles","Responde corto","Se molesta por la pregunta","La historia cambia de una vez a otra"]},
+  {c:"rut", cat:"Su rutina", q:"¿Ha cambiado su forma de arreglarse?", o:["Está igual","Se cuida un poco más","Cambió ropa, perfume o gym de golpe","Se arregla mucho para salidas a las que tú no vas"]},
+  {c:"tra", cat:"El trato contigo", q:"¿Cómo está el cariño entre ustedes?", o:["Igual o mejor","Un poco más distante","Frío la mayor parte del tiempo","Pasa de muy frío a demasiado detallista sin razón"]},
+  {c:"tra", cat:"El trato contigo", q:"¿Cómo están las discusiones?", o:["Normales, como siempre","Un poco más seguidas","Pelea por cosas pequeñas","Busca pelea justo antes de salir sin ti"]},
+  {c:"tra", cat:"El trato contigo", q:"¿Te acusa de celos o de infidelidad?", o:["Nunca","Alguna vez, en broma","Seguido","Te acusa justo de lo que tú sospechas"]},
+  {c:"tra", cat:"El trato contigo", q:"¿Y los planes juntos?", o:["Hace planes contigo, incluso a futuro","Menos que antes","Evita hablar del futuro","Cancela seguido a última hora"]},
+  {c:"int", cat:"Intimidad", q:"¿Ha cambiado la intimidad?", o:["Está igual","Bajó un poco","Bajó mucho","Cambió de forma rara y repentina"]},
+  {c:"din", cat:"Dinero", q:"¿Cómo maneja sus gastos?", o:["Con transparencia","Algún gasto sin explicar","Gastos frecuentes sin explicar","Esconde estados de cuenta o abrió cuentas nuevas"]},
+  {c:"red", cat:"Redes y personas", q:"¿Cómo aparecen ustedes en sus redes sociales?", o:["Te tiene y publica de ustedes","Publica menos de ustedes","Oculta la relación","Tiene perfiles o apps que no conocías"]},
+  {c:"red", cat:"Redes y personas", q:"¿Hay alguien en particular que te llame la atención?", o:["No, nadie","Menciona mucho a alguien nuevo","Dejó de mencionar de golpe a alguien de quien hablaba mucho","Esa persona te evita o te trata raro"]},
+  {c:"intu", cat:"Tu intuición", q:"Siendo honesto contigo, ¿qué te dice tu intuición?", o:["Estoy tranquilo, solo tengo curiosidad","Algo no me cierra","Siento que me oculta algo","Estoy casi seguro"]}
+];
+
+const CATS = {
+  cel:{n:"Secretismo con el celular", d:"Proteger el teléfono de golpe es de los cambios que más se notan. No siempre es infidelidad, pero sí falta de transparencia."},
+  rut:{n:"Rutina y explicaciones", d:"Horarios nuevos e historias que cambian pesan más cuando aparecen juntos y de repente."},
+  tra:{n:"Cambios en el trato", d:"Distancia, peleas para salir sin ti o acusarte de lo mismo que sospechas son patrones que conviene hablar."},
+  int:{n:"Intimidad", d:"Un cambio brusco en la intimidad suele reflejar que algo cambió en la relación, sea lo que sea."},
+  din:{n:"Dinero sin explicar", d:"Gastos ocultos o cuentas nuevas son de las señales más concretas porque dejan rastro."},
+  red:{n:"Redes y terceras personas", d:"Ocultar la relación o tener a alguien nuevo muy presente son señales que se pueden conversar con hechos."},
+  intu:{n:"Tu intuición", d:"Tu intuición cuenta, pero conviene apoyarla en hechos antes de confrontar."}
+};
+
+const LEVELS = [
+  {max:25, name:"Calma", color:"#6fc3a0", title:"Hay pocas señales de alarma", text:"Lo que describes se parece más a los altibajos normales de una relación. Si la duda sigue, puede venir del momento que estás viviendo y no de tu pareja.",
+    steps:["Habla de cómo te sientes sin acusar: «Últimamente me siento inseguro, ¿podemos hablar?».","Pregúntate si la duda empezó por algo concreto o por algo tuyo, como estrés, una experiencia pasada o lo que ves en redes.","Hagan algo juntos esta semana que antes disfrutaban."]},
+  {max:50, name:"Señales leves", color:"#cdb85a", title:"Hay cambios que vale la pena mirar", text:"Notaste algunos cambios reales, pero todavía no forman un patrón fuerte. Es momento de observar con calma, sin obsesionarte.",
+    steps:["Anota fechas y hechos concretos durante 2 o 3 semanas, sin espiar.","Busca un momento tranquilo para hablar y haz preguntas abiertas, no interrogatorios.","Fíjate si los cambios se explican por trabajo, salud o estrés."]},
+  {max:75, name:"Señales claras", color:"#f2b24c", title:"Hay un patrón que conviene hablar", text:"Varias señales aparecen juntas y eso merece una conversación seria. No es una prueba, pero tampoco es solo tu imaginación.",
+    steps:["Prepara la conversación con hechos y fechas: «El martes dijiste X, pero pasó Y».","Habla en privado, sin alcohol y sin que haya prisa.","Si la conversación no avanza, consideren terapia de pareja.","No revises su celular a escondidas: es ilegal y te quita la razón."]},
+  {max:100, name:"Alerta alta", color:"#e8604c", title:"Las señales son fuertes y consistentes", text:"Lo que describes forma un patrón fuerte en varias áreas a la vez. Lo más importante ahora eres tú: cuídate antes de decidir.",
+    steps:["Cuéntaselo a alguien de confianza para no cargar esto solo.","Si necesitas certeza, un investigador privado con licencia puede ayudarte de forma legal.","Si comparten hijos, casa o bienes, busca asesoría legal antes de confrontar.","Decide qué quieres tú, pase lo que pase con la respuesta."]}
+];
+
+// Configura tu proyecto de Supabase (la anon key es pública por diseño; la seguridad la dan las políticas RLS de supabase.sql)
+const SUPABASE_URL = "__SUPABASE_URL__";
+const SUPABASE_ANON_KEY = "__SUPABASE_ANON_KEY__";
+const SITE_URL = "__SITE_URL__";
+
+const $ = id => document.getElementById(id);
+let state = {step:0, answers:Array(Q.length).fill(null), done:false};
+
+function score(answers){
+  const total = answers.reduce((s,v)=>s+(v??0),0);
+  return Math.round(total/(Q.length*3)*100);
+}
+function levelFor(s){ return LEVELS.find(l=>s<=l.max); }
+function topSignals(answers){
+  const agg = {};
+  Q.forEach((q,i)=>{ (agg[q.c] ??= {sum:0,n:0}); agg[q.c].sum += answers[i]??0; agg[q.c].n++; });
+  return Object.entries(agg)
+    .map(([k,v])=>({k, avg:v.sum/v.n}))
+    .filter(x=>x.avg>=1.5)
+    .sort((a,b)=>b.avg-a.avg)
+    .slice(0,3);
+}
+
+function show(id){
+  ["intro","quiz","result"].forEach(s=>{
+    const el=$(s);
+    if(s===id){ el.classList.remove("hidden"); el.style.display="flex"; }
+    else { el.classList.add("hidden"); }
+  });
+  window.scrollTo({top:0});
+}
+
+function renderQ(){
+  const i = state.step, q = Q[i];
+  $("qCat").textContent = q.cat;
+  $("qText").textContent = q.q;
+  $("count").textContent = `${i+1}/${Q.length}`;
+  $("barFill").style.width = `${(i/Q.length)*100}%`;
+  $("bar").setAttribute("aria-valuenow", i);
+  $("back").disabled = false;
+  const box = $("opts"); box.innerHTML = "";
+  q.o.forEach((txt,v)=>{
+    const b = document.createElement("button");
+    b.type="button"; b.className="opt"; b.id=`opt-${i}-${v}`;
+    b.setAttribute("aria-pressed", state.answers[i]===v ? "true":"false");
+    b.innerHTML = `<b>${"ABCD"[v]}</b><span></span>`;
+    b.querySelector("span").textContent = txt;
+    b.addEventListener("click", ()=>pick(v));
+    box.appendChild(b);
+  });
+  const qb=$("qBox"); qb.classList.remove("enter"); void qb.offsetWidth; qb.classList.add("enter");
+}
+
+function pick(v){
+  state.answers[state.step] = v;
+  [...$("opts").children].forEach((b,k)=>b.setAttribute("aria-pressed", k===v?"true":"false"));
+  setTimeout(()=>{
+    if(state.step < Q.length-1){ state.step++; renderQ(); }
+    else { state.done = true; renderResult(); track(); }
+  }, 180);
+}
+
+function renderResult(){
+  show("result");
+  const s = score(state.answers), L = levelFor(s);
+  $("levelName").textContent = L.name;
+  $("levelName").style.color = L.color;
+  $("resTitle").textContent = L.title;
+  $("resText").textContent = L.text;
+
+  const sig = topSignals(state.answers), ul = $("signals"); ul.innerHTML="";
+  if(!sig.length){
+    $("signalsBox").classList.add("hidden");
+  } else {
+    $("signalsBox").classList.remove("hidden");
+    sig.forEach(x=>{
+      const li=document.createElement("li");
+      const col = x.avg>=2.5 ? "#e8604c" : x.avg>=2 ? "#f2b24c" : "#cdb85a";
+      li.innerHTML = `<i class="dot" style="background:${col}"></i><div><strong></strong><span></span></div>`;
+      li.querySelector("strong").textContent = CATS[x.k].n;
+      li.querySelector("span").textContent = CATS[x.k].d;
+      ul.appendChild(li);
+    });
+  }
+  const st=$("steps"); st.innerHTML="";
+  L.steps.forEach(t=>{ const li=document.createElement("li"); li.textContent=t; st.appendChild(li); });
+
+  animateGauge(s);
+}
+
+function animateGauge(target){
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const set = v => {
+    $("arc").setAttribute("stroke-dasharray", `${v} 100`);
+    $("needle").setAttribute("transform", `rotate(${-90 + v*1.8} 120 120)`);
+    $("scoreNum").textContent = Math.round(v);
+  };
+  if(reduce){ set(target); return; }
+  const t0 = performance.now(), dur = 1400;
+  const tick = now => {
+    const p = Math.min(1,(now-t0)/dur);
+    const e = 1 - Math.pow(1-p, 3);
+    set(target*e);
+    if(p<1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+$("start").addEventListener("click", ()=>{ state.step=0; show("quiz"); renderQ(); });
+$("back").addEventListener("click", ()=>{
+  if(state.step>0){ state.step--; renderQ(); }
+  else { show("intro"); }
+});
+$("again").addEventListener("click", ()=>{
+  state = {step:0, answers:Array(Q.length).fill(null), done:false};
+  tracked = false;
+  show("intro");
+});
+$("share").addEventListener("click", async ()=>{
+  const url = location.href.split("#")[0];
+  try{ await navigator.clipboard.writeText(url); $("toast").textContent = "Link copiado. Pégalo donde quieras compartirlo."; }
+  catch(e){ $("toast").textContent = "No se pudo copiar. Copia el link desde la barra de direcciones."; }
+});
+
+
+/* ---------- Supabase (REST directo, sin librerías) ---------- */
+const sbReady = () => SUPABASE_URL.startsWith("https://") && !SUPABASE_ANON_KEY.startsWith("__");
+async function sbInsert(table, row){
+  if(!sbReady()) throw new Error("not-configured");
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+    method:"POST", keepalive:true,
+    headers:{apikey:SUPABASE_ANON_KEY, Authorization:`Bearer ${SUPABASE_ANON_KEY}`, "Content-Type":"application/json", Prefer:"return=minimal"},
+    body:JSON.stringify(row)
+  });
+  if(!r.ok) throw new Error(String(r.status));
+}
+
+// Contador anónimo: solo nivel y puntaje. Sin respuestas, sin IP, sin identificadores.
+let tracked = false;
+function track(){
+  if(tracked || !sbReady()) return;
+  tracked = true;
+  const s = score(state.answers);
+  sbInsert("quiz_completions", {level: levelFor(s).name, score: s}).catch(()=>{ tracked = false; });
+}
+
+$("wlForm").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const email = $("wlEmail").value.trim().toLowerCase(), msg = $("wlMsg");
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ msg.textContent = "Revisa el correo: no parece válido."; return; }
+  $("wlBtn").disabled = true;
+  try{
+    await sbInsert("waitlist", {email});
+    msg.textContent = "Listo, te avisaremos cuando salga el Detective IA.";
+    $("wlForm").classList.add("hidden");
+  }catch(err){
+    if(err.message==="409"){ msg.textContent = "Ese correo ya está en la lista. Gracias."; $("wlForm").classList.add("hidden"); }
+    else { msg.textContent = "No pudimos guardarlo ahora. Inténtalo de nuevo en un momento."; $("wlBtn").disabled = false; }
+  }
+});
+
+/* ---------- Imagen para historias (1080x1920) ---------- */
+async function buildShareImage(){
+  const s = score(state.answers), L = levelFor(s);
+  await Promise.all([document.fonts.load('800 100px "Bricolage Grotesque"'), document.fonts.load('600 40px "Instrument Sans"')]).catch(()=>{});
+  const W=1080, H=1920, c=document.createElement("canvas"); c.width=W; c.height=H;
+  const x=c.getContext("2d");
+  x.fillStyle="#0f1424"; x.fillRect(0,0,W,H);
+  const glow=x.createRadialGradient(200,0,0,200,0,1100);
+  glow.addColorStop(0,"rgba(242,178,76,.28)"); glow.addColorStop(1,"rgba(242,178,76,0)");
+  x.fillStyle=glow; x.fillRect(0,0,W,H);
+  x.textAlign="center";
+  x.fillStyle="#f2b24c"; x.font='800 56px "Bricolage Grotesque", sans-serif'; x.fillText("Claridad",W/2,200);
+  x.fillStyle="#9ba3ba"; x.font='500 40px "Instrument Sans", sans-serif'; x.fillText("Test de señales",W/2,260);
+
+  const cx=W/2, cy=860, R=360;
+  x.lineCap="round"; x.lineWidth=60;
+  x.strokeStyle="#2a3354"; x.beginPath(); x.arc(cx,cy,R,Math.PI,2*Math.PI); x.stroke();
+  const g=x.createLinearGradient(cx-R,0,cx+R,0);
+  g.addColorStop(0,"#6fc3a0"); g.addColorStop(.5,"#f2b24c"); g.addColorStop(1,"#e8604c");
+  if(s>0){ x.strokeStyle=g; x.beginPath(); x.arc(cx,cy,R,Math.PI,Math.PI+Math.PI*s/100); x.stroke(); }
+  const a=Math.PI+Math.PI*s/100;
+  x.strokeStyle="#efe9dd"; x.lineWidth=12; x.beginPath(); x.moveTo(cx,cy); x.lineTo(cx+Math.cos(a)*(R-90),cy+Math.sin(a)*(R-90)); x.stroke();
+  x.fillStyle="#efe9dd"; x.beginPath(); x.arc(cx,cy,26,0,2*Math.PI); x.fill();
+
+  x.fillStyle="#efe9dd"; x.font='800 280px "Bricolage Grotesque", sans-serif'; x.fillText(String(s),cx,cy+330);
+  x.fillStyle="#9ba3ba"; x.font='600 70px "Bricolage Grotesque", sans-serif'; x.fillText("de 100",cx,cy+420);
+  x.fillStyle=L.color; x.font='700 68px "Instrument Sans", sans-serif'; x.fillText(L.name.toUpperCase(),cx,cy+540);
+
+  x.fillStyle="#efe9dd"; x.font='800 72px "Bricolage Grotesque", sans-serif'; x.fillText("¿Y tú?",cx,1560);
+  x.fillStyle="#9ba3ba"; x.font='500 40px "Instrument Sans", sans-serif'; x.fillText("Haz el test en 3 minutos",cx,1630);
+  x.fillStyle="#f2b24c"; x.font='600 42px "Instrument Sans", sans-serif';
+  x.fillText(SITE_URL.replace(/^https?:\/\//,"").replace(/\/$/,""),cx,1730);
+  return new Promise(res=>c.toBlob(res,"image/png"));
+}
+
+$("shareImg").addEventListener("click", async ()=>{
+  const btn=$("shareImg"); btn.disabled=true;
+  try{
+    const blob=await buildShareImage();
+    const file=new File([blob],"claridad-resultado.png",{type:"image/png"});
+    if(navigator.canShare?.({files:[file]})){
+      await navigator.share({files:[file], text:"Hice el test Claridad. ¿Y tú?", url:SITE_URL});
+    } else {
+      const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="claridad-resultado.png";
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+      $("toast").textContent="Imagen descargada. Súbela a tu historia de Instagram o TikTok.";
+    }
+  }catch(e){
+    if(e.name!=="AbortError") $("toast").textContent="No se pudo crear la imagen.";
+  }finally{ btn.disabled=false; }
+});
+
+function start(data){
+  if(data && Array.isArray(data.answers) && data.answers.length===Q.length){
+    state = data;
+    if(state.done) renderResult();
+    else if(state.answers.some(a=>a!==null)){ show("quiz"); renderQ(); }
+  }
+}
+window.claude?.hot?.snapshot?.(() => state);
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+</script>
+</body>
+</html>
